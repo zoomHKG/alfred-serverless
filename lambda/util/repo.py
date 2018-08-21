@@ -45,7 +45,8 @@ class Repository():
             obj = self.s3.Object(self.bucket, self.moviesKey)
             data = obj.get()['Body'].read().decode('utf-8')
             movies = json.loads(data)
-            return movies
+            filtered_movies = dict((k, v) for k, v in movies.items() if k not in self.notified)
+            return filtered_movies
         except ValueError as error:
             _LOGGER.exception(
                 'Could not parse JSON content: %s')
