@@ -34,13 +34,20 @@ def get_envs():
 
 
 def main(event, context):
+    # get app configs
     emailaddr, passwd, bucket, mkey, nkey = get_envs()
+
+    # initialize objects
     email = Email(emailaddr, passwd)
     repo = Repository(bucket, mkey, nkey)
     yts = YTS()
+
+    # get necessary movie data
     wish_list = repo.get_movies()
     available = yts.get_movies()
     notified = []
+
+    # check if wanted movie available
     for movie in wish_list:
         _LOGGER.debug('{} : {}'.format(movie, movie in available))
         if movie in available:
@@ -48,6 +55,8 @@ def main(event, context):
             email.send_mail(wish_list[movie], 'Movie Available',
                             'The movie {} is now available on YTS.'.format(movie))
             notified.append(movie)
+    
+    # update notified list
     if len(notified) > 0:
         repo.save_notified(notified)
     # email.send_mail(['abhishekmaharjan1993@gmail.com'],
