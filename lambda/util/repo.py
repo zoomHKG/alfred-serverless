@@ -30,9 +30,9 @@ class Repository():
                 Key=self.notifiedKey, Body=''.encode('utf-8'))
             return []
 
-    def save_notified(self, movie):
+    def save_notified(self, movies):
         """append notified movie to file"""
-        self.notified.append(movie)
+        self.notified += movies
         try:
             self.s3.Bucket(self.bucket).put_object(
                 Key=self.notifiedKey, Body='\n'.join(self.notified).encode('utf-8'))
