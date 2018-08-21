@@ -44,7 +44,8 @@ def main(event, context):
             email.send_mail(wish_list[movie], 'Movie Available',
                             'The movie {} is now available on YTS.'.format(movie))
             notified.append(movie)
-    repo.save_notified(notified)
+    if len(notified) > 0:
+        repo.save_notified(notified)
     # email.send_mail(['abhishekmaharjan1993@gmail.com'],
     #                 'Awake', "I'm awake!! {}".format(', '.join(movies)))
     
