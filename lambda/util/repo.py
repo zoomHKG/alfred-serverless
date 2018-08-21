@@ -11,11 +11,11 @@ _LOGGER = logging.getLogger(__name__)
 class Repository():
     """ALfred repository"""
 
-    def __init__(self):
+    def __init__(self, bucket, movieKey, notifiedkey):
         """Repository Constructor"""
-        self.bucket = 'rpidanny.alfred'
-        self.moviesKey = 'alfred/movies.json'
-        self.notifiedKey = 'alfred/notified.txt'
+        self.bucket = bucket
+        self.mKey = movieKey
+        self.nKey = notifiedkey
         self.s3 = boto3.resource('s3')
         self.notified = self.load_notified()
 
@@ -23,11 +23,11 @@ class Repository():
         """Load already notified movies from file"""
         """Get movies/emails from repo"""
         try:
-            obj = self.s3.Object(self.bucket, self.notifiedKey)
+            obj = self.s3.Object(self.bucket, self.nKey)
             return obj.get()['Body'].read().decode('utf-8').splitlines()
         except:
             self.s3.Bucket(self.bucket).put_object(
-                Key=self.notifiedKey, Body=''.encode('utf-8'))
+                Key=self.nKey, Body=''.encode('utf-8'))
             return []
 
     def save_notified(self, movies):
@@ -35,14 +35,14 @@ class Repository():
         self.notified += movies
         try:
             self.s3.Bucket(self.bucket).put_object(
-                Key=self.notifiedKey, Body='\n'.join(self.notified).encode('utf-8'))
+                Key=self.nKey, Body='\n'.join(self.notified).encode('utf-8'))
         except:
             return []
 
     def get_movies(self):
         """Get movies/emails from repo"""
         try:
-            obj = self.s3.Object(self.bucket, self.moviesKey)
+            obj = self.s3.Object(self.bucket, self.mKey)
             data = obj.get()['Body'].read().decode('utf-8')
             movies = json.loads(data)
             filtered_movies = dict((k, v) for k, v in movies.items() if k not in self.notified)

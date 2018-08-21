@@ -32,7 +32,7 @@ def get_credentials():
 def main(event, context):
     email, passwd = get_credentials()
     email = Email(email, passwd)
-    repo = Repository()
+    repo = Repository('rpidanny.alfred', 'alfred/movies.json', 'alfred/notified.txt')
     yts = YTS()
     wish_list = repo.get_movies()
     available = yts.get_movies()
