@@ -6,7 +6,7 @@ import smtplib
 class Email():
     """Email class to send notifications"""
 
-    email_text = 'From: {}\nTo: {}\nSubject: {}\n{}'
+    email_text = 'From: Alfred <{}>\nTo: {}\nSubject: {}\n{}'
     def __init__(self, email, passwd):
         self.email = email
         self.passwd = passwd
@@ -19,5 +19,5 @@ class Email():
         self.server.starttls()
         self.server.login(self.email, self.passwd)
         self.server.sendmail(self.email, emails, self.email_text.format(
-            'Alfred', ', '.join(emails), title, re.sub(r'\W', ' ', body)))
+            self.email, ', '.join(emails), title, re.sub(r'\W', ' ', body)))
         self.server.quit()
