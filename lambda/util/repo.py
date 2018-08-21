@@ -34,7 +34,6 @@ class Repository():
         """append notified movie to file"""
         self.notified.append(movie)
         try:
-            obj = self.s3.Object(self.bucket, self.notifiedKey)
             self.s3.Bucket(self.bucket).put_object(
                 Key=self.notifiedKey, Body='\n'.join(self.notified).encode('utf-8'))
         except:
