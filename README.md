@@ -11,9 +11,9 @@ Serverless implementation of [Alfred](https://github.com/zoomHKG/alfred)
 
 ### Installation
 
-'''shell
+```shell
 pip install beautifulsoup4==4.6.0 requests==2.19.1 -t ./lambda/
-'''
+```
 
 ### Deployment
 
