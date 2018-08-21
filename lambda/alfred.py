@@ -4,6 +4,7 @@ import json
 from util.email import Email
 from util.repo import Repository
 
+
 def response(message, status_code):
     return {
         'statusCode': str(status_code),
@@ -11,8 +12,9 @@ def response(message, status_code):
         'headers': {
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '*'
-            },
-        }
+        },
+    }
+
 
 def get_credentials():
     """get email credentials from ENV"""
@@ -21,6 +23,7 @@ def get_credentials():
     if not (email and passwd):
         exit(1)
     return email, passwd
+
 
 def main(event, context):
     email, passwd = get_credentials()

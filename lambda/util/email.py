@@ -3,15 +3,16 @@
 import re
 import smtplib
 
+
 class Email():
     """Email class to send notifications"""
 
     email_text = 'From: Alfred <{}>\nTo: {}\nSubject: {}\n{}'
+
     def __init__(self, email, passwd):
         self.email = email
         self.passwd = passwd
         self.server = None
-
 
     def send_mail(self, emails, title, body):
         """Send email"""
