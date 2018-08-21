@@ -20,19 +20,23 @@ def response(message, status_code):
     }
 
 
-def get_credentials():
+def get_envs():
     """get email credentials from ENV"""
-    email = os.environ.get("EMAIL")
-    passwd = os.environ.get("PASSWD")
-    if not (email and passwd):
+    email = os.environ.get('EMAIL')
+    passwd = os.environ.get('PASSWD')
+    bucket = os.environ.get('BUCKET')
+    mkey = os.environ.get('MOVIES')
+    nkey = os.environ.get('NOTIFIED')
+
+    if not (email and passwd and bucket and mkey and nkey):
         exit(1)
-    return email, passwd
+    return email, passwd, bucket, mkey, nkey
 
 
 def main(event, context):
-    email, passwd = get_credentials()
-    email = Email(email, passwd)
-    repo = Repository('rpidanny.alfred', 'alfred/movies.json', 'alfred/notified.txt')
+    emailaddr, passwd, bucket, mkey, nkey = get_envs()
+    email = Email(emailaddr, passwd)
+    repo = Repository(bucket, mkey, nkey)
     yts = YTS()
     wish_list = repo.get_movies()
     available = yts.get_movies()
