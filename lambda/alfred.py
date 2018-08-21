@@ -2,6 +2,7 @@ import os
 import boto3
 import json
 from util.email import Email
+from util.repo import Repository
 
 def response(message, status_code):
     return {
@@ -24,8 +25,12 @@ def get_credentials():
 def main(event, context):
     email, passwd = get_credentials()
     email = Email(email, passwd)
+    repo = Repository()
+    # repo.save_notified('avengers')
+    movies = repo.get_movies()
     email.send_mail(['abhishekmaharjan1993@gmail.com'],
-                    'Awake', "I'm awake!! {}".format('hello'))
+                    'Awake', "I'm awake!! {}".format(', '.join(movies)))
     return response({
-        'message': 'ok'
+        'message': movies,
+        'notified': repo.notified
     }, 200)
