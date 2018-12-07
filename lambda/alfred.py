@@ -60,7 +60,7 @@ def main(event, context):
     if len(notified) > 0:
         repo.save_notified(notified)
     # email.send_mail(['abhishekmaharjan1993@gmail.com'],
-    #                 'Awake', "I'm awake!! {}".format(', '.join(movies)))
+    #                 'Awake', "I'm awake!! {}".format(', '.join(wish_list)))
     
     return response({
         'available': available,
