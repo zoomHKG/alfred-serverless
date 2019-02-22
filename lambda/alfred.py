@@ -2,7 +2,7 @@ import os
 import boto3
 import json
 import logging
-import util.mailer
+from util import mailer
 from util.email import Email
 from util.repo import Repository
 from util.yts import YTS
