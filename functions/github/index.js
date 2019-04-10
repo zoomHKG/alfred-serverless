@@ -39,26 +39,37 @@ const writeS3ObjectToFile = (obj, filePath) =>
   })
 
 const filterMovies = (notifiedMovies) =>
-  new Promise((resolve, reject) => {
+  new Promise(async (resolve, reject) => {
+    try {
+      const moviesRepository = await fs.readJSON(`${gitDir}/movies.json`)
+      const notifiedRepository = await fs.readJSON(`${gitDir}/notified.json`)
+
+      const moviesList = Object.keys(moviesRepository)
+
+      const waitList = moviesList
+        .filter(movie => notifiedMovies.indexOf(movie) === -1)
+        .reduce((obj, key) => {
+          obj[key] = moviesRepository[key]
+          return obj
+        }, {})
+      const notified = moviesList
+        .filter(movie => notifiedMovies.indexOf(movie) > -1)
+        .reduce((obj, key) => {
+          obj[key] = moviesRepository[key]
+          return obj
+        }, notifiedRepository)
+
+      fs.writeFile(`${gitDir}/movies.json`, JSON.stringify(waitList, null, 2))
+        .then(() => fs.writeFile(`${gitDir}/notified.json`, JSON.stringify(notified, null, 2)))
+        .then(resolve)
+        .catch(reject)
+    } catch (err) {
+      reject(err)
+    }
+
     fs.readJSON(`${gitDir}/movies.json`)
       .then(moviesRepository => {
-        const moviesList = Object.keys(moviesRepository)
 
-        const waitList = moviesList
-          .filter(movie => notifiedMovies.indexOf(movie) === -1)
-          .reduce((obj, key) => {
-            obj[key] = moviesRepository[key]
-            return obj
-          }, {})
-        const notified = moviesList
-          .filter(movie => notifiedMovies.indexOf(movie) > -1)
-          .reduce((obj, key) => {
-            obj[key] = moviesRepository[key]
-            return obj
-          }, {})
-
-        return fs.writeFile(`${gitDir}/movies.json`, JSON.stringify(waitList, null, 2))
-          .then(() => fs.writeFile(`${gitDir}/notified.json`, JSON.stringify(notified, null, 2)))
       })
       .then(resolve)
       .catch(reject)
@@ -67,7 +78,8 @@ const filterMovies = (notifiedMovies) =>
 module.exports.clearNotified = (event, content, callback) => {
   const repoURL = `https://${GH_KEY}@github.com/${gitRepo}`
 
-  fs.mkdirp(gitDir)
+  fs.remove(gitDir)
+    .then(() => fs.mkdirp(gitDir))
     .then(() => {
       const git = gitP(gitDir)
       return git.init()
