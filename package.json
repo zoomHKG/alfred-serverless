@@ -1,0 +1,27 @@
+{
+  "name": "alfred-serverless",
+  "version": "1.0.0",
+  "description": "Serverless implimentation of Alfred",
+  "main": "index.js",
+  "dependencies": {
+    "serverless-offline": "^4.9.4",
+    "serverless-python-requirements": "^4.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "export SLS_DEBUG=* && serverless deploy",
+    "logs:yts": "serverless logs -f yts -t",
+    "invoke:yts": "serverless invoke -f yts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zoomHKG/alfred-serverless.git"
+  },
+  "author": "Abhishek Maharjan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zoomHKG/alfred-serverless/issues"
+  },
+  "homepage": "https://github.com/zoomHKG/alfred-serverless#readme"
+}
