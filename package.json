@@ -18,7 +18,8 @@
     "deploy": "export SLS_DEBUG=* && serverless deploy",
     "logs:yts": "serverless logs -f yts -t",
     "invoke:yts": "serverless invoke -f yts",
-    "invoke:clear-notified": "serverless invoke local -f clear-notified"
+    "invoke:clear-notified": "serverless invoke -f clear-notified",
+    "invoke:clear-notified-local": "serverless invoke local -f clear-notified"
   },
   "repository": {
     "type": "git",
