@@ -1,6 +1,7 @@
 service: alfred
 
 plugins:
+  - serverless-plugin-include-dependencies
   - serverless-python-requirements
   - serverless-offline
 
@@ -38,6 +39,7 @@ provider:
 
 functions:
   - ${file(functions/yts/index.yml)}
+  - ${file(functions/github/index.yml)}
 
 resources:
   Resources:

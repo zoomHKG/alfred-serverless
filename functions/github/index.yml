@@ -1,0 +1,19 @@
+clear-notified:
+  handler: functions/github/index.clearNotified
+  module: functions/github
+  runtime: nodejs8.10
+  description: Remove notified movies from repository.
+  memorySize: 128
+  environment:
+    GH_KEY: ${ssm:github-key}
+    GH_USER: ${ssm:github-username}
+    GH_EMAIL: ${ssm:github-email}
+  layers:
+    - arn:aws:lambda:eu-west-1:553035198032:layer:git:3
+  events:
+    - s3:
+      bucket: photos
+      event: s3:ObjectCreated:*
+      rules:
+        - suffix: .txt
+  timeout: 60
