@@ -1,23 +1,18 @@
 # alfred-serverless
 
-Serverless implementation of [Alfred](https://github.com/zoomHKG/alfred)
+A [Serverless](https://serverless.com) application that checks for new movies on YTS (other sources to be added soon) and notifies the subscribers of [alfred-repository](https://github.com/zoomHKG/alfred-repository) by email.
+
+## Requirements
+
+- [AWS CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+- [Serverless](https://serverless.com)
 
 ## Setup
 
-### Requirements
+1. `aws ssm put-parameter --name github-key --type String --value $GITHUB_KEY --profile default --overwrite --region eu-west-1`
+2. `aws ssm put-parameter --name github-username --type String --value $GITHUB_USER --profile default --overwrite --region eu-west-1`
+3. `aws ssm put-parameter --name github-email --type String --value $GITHUB_EMAIL --profile default --overwrite --region eu-west-1`
 
-- [AWS lambda](https://aws.amazon.com/lambda) function
-- [AWS S3](https://aws.amazon.com/s3) bucket
+## Deploy
 
-### Installation
-
-```shell
-pip install beautifulsoup4==4.6.0 requests==2.19.1 -t ./lambda/
-```
-
-### Deployment
-
-- Change the function name in `deploy.sh` to your function name.
-- Add `EMAIL`, `PASSWD`, `YTS`, `BUCKET`, `MOVIES`, `NOTIFIED` Environment Variables to your lambda function.
-- run `./deploy.sh`
-- Configure `triggers` to your deployed function. (`API Gateway` or `CloudWatch Events` maybe?)
+`npm run deploy`
