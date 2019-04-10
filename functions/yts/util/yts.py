@@ -11,7 +11,7 @@ class YTS():
     def __init__(self):
         """Constructor"""
         # self.url = os.environ.get("YTS", 'https://yts.am/')
-        self.url = os.environ.get("YTS", 'http://127.0.0.1:8080/')
+        self.url = os.environ.get("YTS_URL", 'http://127.0.0.1:8080/')
         self.previous = []
 
     def get_page(self):

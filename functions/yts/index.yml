@@ -1,0 +1,9 @@
+yts:
+  handler: index.main
+  module: functions/yts
+  description: Check yts for new movies
+  memorySize: 128
+  events:
+    - schedule: cron(0 17 * * ? *) # Invoke everyday at 17
+    - schedule: cron(0 7 * * ? *) # Invoke everyday at 7
+  timeout: 60

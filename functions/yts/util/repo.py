@@ -11,11 +11,11 @@ _LOGGER = logging.getLogger(__name__)
 class Repository():
     """ALfred repository"""
 
-    def __init__(self, bucket, movieKey, notifiedkey):
+    def __init__(self, bucket):
         """Repository Constructor"""
         self.bucket = bucket
-        self.mKey = movieKey
-        self.nKey = notifiedkey
+        self.mKey = 'movies.json'
+        self.nKey = 'notified.txt'
         self.s3 = boto3.resource('s3')
         self.notified = self.load_notified()
 
