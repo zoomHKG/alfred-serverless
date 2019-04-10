@@ -1,5 +1,5 @@
 clear-notified:
-  handler: index.clearNotified
+  handler: functions/github/index.clearNotified
   module: functions/github
   runtime: nodejs8.10
   description: Remove notified movies from repository.
