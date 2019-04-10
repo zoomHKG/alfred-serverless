@@ -106,3 +106,4 @@ venv.bak/
 # zips
 *.zip
 node_modules
+.serverless
