@@ -66,13 +66,6 @@ const filterMovies = (notifiedMovies) =>
     } catch (err) {
       reject(err)
     }
-
-    fs.readJSON(`${gitDir}/movies.json`)
-      .then(moviesRepository => {
-
-      })
-      .then(resolve)
-      .catch(reject)
   })
 
 module.exports.clearNotified = (event, content, callback) => {
