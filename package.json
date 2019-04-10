@@ -4,15 +4,21 @@
   "description": "Serverless implimentation of Alfred",
   "main": "index.js",
   "dependencies": {
+    "aws-sdk": "^2.437.0",
+    "fs-extra": "^7.0.1",
     "serverless-offline": "^4.9.4",
-    "serverless-python-requirements": "^4.3.0"
+    "serverless-python-requirements": "^4.3.0",
+    "simple-git": "^1.110.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "serverless-plugin-include-dependencies": "^3.2.1"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "deploy": "export SLS_DEBUG=* && serverless deploy",
     "logs:yts": "serverless logs -f yts -t",
-    "invoke:yts": "serverless invoke -f yts"
+    "invoke:yts": "serverless invoke -f yts",
+    "invoke:clear-notified": "serverless invoke local -f clear-notified"
   },
   "repository": {
     "type": "git",
