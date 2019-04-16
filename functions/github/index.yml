@@ -12,7 +12,7 @@ clear-notified:
     - arn:aws:lambda:eu-west-1:553035198032:layer:git:3
   events:
     - s3:
-      bucket: photos
+      bucket: ${self:provider.environment.S3_BUCKET}
       event: s3:ObjectCreated:*
       rules:
         - suffix: .txt
