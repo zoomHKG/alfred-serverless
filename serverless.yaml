@@ -3,6 +3,8 @@ service: alfred
 plugins:
   - serverless-plugin-include-dependencies
   - serverless-python-requirements
+  - serverless-plugin-existing-s3
+  - serverless-iam-roles-per-function
   - serverless-offline
 
 package:
@@ -28,13 +30,13 @@ provider:
     S3_BUCKET: ${self:service}-${opt:stage, self:provider.stage}-data
     MAILER_URL: 'https://us-central1-mailer-69581.cloudfunctions.net/mail/'
     YTS_URL: 'https://yts.am'
-  iamRoleStatements:
-    - Effect: Allow
-      Action:
-        - s3:PutObject
-        - s3:GetObject
-      Resource:
-        - 'arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*'
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action:
+  #       - s3:PutObject
+  #       - s3:GetObject
+  #     Resource:
+  #       - 'arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*'
 
 
 functions:
@@ -43,7 +45,10 @@ functions:
 
 resources:
   Resources:
-    S3TranscriptionBucket:
-      Type: 'AWS::S3::Bucket'
-      Properties:
-        BucketName: ${self:provider.environment.S3_BUCKET}
+    # If s3 event is used, this is redundant and causes error
+    # https://github.com/serverless/serverless/issues/4284
+    # S3TranscriptionBucket:
+    #   Type: 'AWS::S3::Bucket'
+    #   Properties:
+    #     BucketName: ${self:provider.environment.S3_BUCKET}
+    
