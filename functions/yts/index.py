@@ -61,3 +61,7 @@ def main(event, context):
         'wishlist': wish_list,
         'notified': repo.notified
     }, 200)
+
+def test (event, context):
+    mailer.send_mail(['whote73@gmail.com'], 'Email Test',
+                    'Email Works')

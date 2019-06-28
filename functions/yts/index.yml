@@ -14,3 +14,10 @@ yts:
         - s3:GetObject
       Resource:
         - 'arn:aws:s3:::${self:provider.environment.S3_BUCKET}/*'
+
+test:
+  handler: index.test
+  module: functions/yts
+  description: Test email
+  memorySize: 128
+  timeout: 60
