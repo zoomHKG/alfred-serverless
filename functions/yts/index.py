@@ -50,8 +50,8 @@ def main(event, context):
             notified.append(movie)
     
     # update notified list
-    # if len(notified) > 0:
-    #     repo.save_notified(notified)
+    if len(notified) > 0:
+        repo.save_notified(notified)
     
     return response({
         'available': available,
