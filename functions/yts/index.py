@@ -60,5 +60,5 @@ def main(event, context):
     }, 200)
 
 def test (event, context):
-    mailer.send_mail('whote73@gmail.com', 'Email Test',
+    mailer.send_mail(['whote73@gmail.com'], 'Email Test',
                     'Email Works')
