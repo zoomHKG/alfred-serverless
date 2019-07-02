@@ -1,12 +1,9 @@
 import os
 import boto3
 import json
-import logging
 from util import mailer
 from util.repo import Repository
 from util.yts import YTS
-
-_LOGGER = logging.getLogger(__name__)
 
 
 def response(message, status_code):
@@ -45,16 +42,16 @@ def main(event, context):
 
     # check if wanted movie available
     for movie in wish_list:
-        _LOGGER.debug('{} : {}'.format(movie, movie in available))
+        print('{} : {}'.format(movie, movie in available))
         if movie in available:
-            _LOGGER.debug('{} Movie available. Sending email.'.format(movie))
+            print('{} Movie available. Sending email.'.format(movie))
             mailer.send_mail(wish_list[movie], 'Movie Available',
                             'The movie {} is now available on YTS.'.format(movie))
             notified.append(movie)
     
     # update notified list
-    if len(notified) > 0:
-        repo.save_notified(notified)
+    # if len(notified) > 0:
+    #     repo.save_notified(notified)
     
     return response({
         'available': available,
